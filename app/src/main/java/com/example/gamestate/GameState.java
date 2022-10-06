@@ -7,11 +7,14 @@ import java.util.ArrayList;
 public class GameState {
 
     public int numPlayerTurn;
-    public ArrayList<Player> players = new ArrayList<>();
+    public ArrayList<Player> players;
     public ArrayList<Card> discard;
-    public ArrayList<Card> drawPile = new ArrayList<>();
+    public ArrayList<Card> drawPile;
 
     public GameState(){
+        players = new ArrayList<>();
+        drawPile = new ArrayList<>();
+
         for (int i = 0; i < 4; i++) {
             players.add(new Player(i));
         }
@@ -22,23 +25,35 @@ public class GameState {
                 drawPile.add(new Card(f, s));
             }
         }
+        Deal();
     }
 
-    public void Deal() {
-
-    }
-
-    public void updateCardDeck()
+    public void Deal()
     {
-
-    }
-
-    public void printPlayerList()
-    {
-        for (Player al: players ) {
-            Log.e("",  al.playerID + "");
+        for (Player p : players)
+        {
+         for (int i = 0; i < 5; ++i)
+         {
+             int index = (int) Math.random() * drawPile.size();
+             p.cards_in_Hand.add(drawPile.get(index));
+             drawPile.remove(index); //updates the draw pile
+         }
         }
+    }
 
+    @Override
+    public String toString()
+    {
+        String string = " ";
+        for (Player al: players ) {
+            string += "player " + al.playerID + ": ";
+            for (Card card : al.cards_in_Hand)
+            {
+                string += card.toString() + " ";
+            }
+              string += "\n";
+        }
+        return string;
     }
 
 }

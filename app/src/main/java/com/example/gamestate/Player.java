@@ -11,6 +11,7 @@ public class Player {
     public Player(int id)
     {
         playerID = id;
+        cards_in_Hand = new ArrayList<>();
     }
 
 

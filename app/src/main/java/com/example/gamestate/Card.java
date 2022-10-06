@@ -3,7 +3,8 @@ package com.example.gamestate;
 public class Card {
 
 
-    public Card(FACE f, SUIT s) {
+    public Card(FACE f, SUIT s)
+    {
         face = f;
         suit = s;
     }
@@ -20,6 +21,11 @@ public class Card {
 
     public FACE face;
     public SUIT suit;
+
+    public String toString()
+    {
+        return suit.name() + "-" + face.name();
+    }
 
 
 }
