@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GameState game = new GameState();
-        Log.e(" ", game.toString());
+        GameState firstInstance = new GameState();
+        Log.e(" ", firstInstance.toString());
     }
 }

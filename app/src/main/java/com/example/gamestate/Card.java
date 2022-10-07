@@ -1,4 +1,7 @@
 package com.example.gamestate;
+/*
+@authors Ronnie Delos Santos, Noelle Lei Sam, Emily Do, Alex Melemai
+ */
 
 public class Card {
 

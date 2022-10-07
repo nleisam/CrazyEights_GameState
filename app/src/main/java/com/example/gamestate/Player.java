@@ -1,6 +1,8 @@
 package com.example.gamestate;
 import java.util.ArrayList;
-
+/*
+@authors Ronnie Delos Santos, Noelle Lei Sam, Emily Do, Alex Melemai
+ */
 public class Player {
 
     public ArrayList<Card> cards_in_Hand;
