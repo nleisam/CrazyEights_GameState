@@ -14,7 +14,7 @@ public class Card {
 
     public enum FACE
     {
-       ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO
+       ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, KING, QUEEN, JACK
     }
 
     public enum SUIT

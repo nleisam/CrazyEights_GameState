@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,5 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
         GameState firstInstance = new GameState();
         Log.e(" ", firstInstance.toString());
+
+        EditText editText = findViewById(R.id.EditText);
+        editText.setText(firstInstance.toString());
+
     }
 }

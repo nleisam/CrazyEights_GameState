@@ -32,9 +32,12 @@ public class GameState {
             }
         }
         numPlayerTurn = new Random().nextInt(players.size());
-        Log.e("", numPlayerTurn + "");
         Deal();
         testPlay();
+    }
+
+    public GameState deepCopy() {
+        return null;
     }
 
     public void Deal()
@@ -50,6 +53,7 @@ public class GameState {
         }
     }
 
+
     @Override
     public String toString()
     {
@@ -62,7 +66,7 @@ public class GameState {
             {
                 playersHand += card.toString() + " ";
             }
-              playersHand += "\n";
+              playersHand += "\n\n";
         }
 
         String drawPileText = "Draw Pile: ";
@@ -71,29 +75,39 @@ public class GameState {
             drawPileText += card.toString() + " ";
         }
 
-        drawPileText += "\n";
+        drawPileText += "\n\n";
 
         String discardPileText = "Discard Pile: ";
 
         for (Card card : discard) {
             discardPileText += card.toString() + " ";
         }
-        discardPileText += "\n";
+        discardPileText += "\n\n";
 
-        String returnText = drawPileText + playersHand + discardPileText;
+        String returnText = drawPileText + playersHand + discardPileText + "\nPlayer Turn: " + numPlayerTurn;
+
+
         return returnText;
     }
 
-    public void placeCard(Player p, Card selectedCard) {
-        p.cards_in_Hand.remove(selectedCard);
-        discard.add(selectedCard);
+    public boolean placeCard(Player p, Card selectedCard) {
+       if(selectedCard != null) {
+           p.cards_in_Hand.remove(selectedCard);
+           discard.add(selectedCard);
+
+           return true;
+       }
+        return false;
     }
 
-    public void difficulty() {
+    public boolean difficulty() {
 
+
+    return false;
     }
-    public void restart() {
+    public boolean restart() {
 
+        return false;
     }
 
 
@@ -124,20 +138,75 @@ public class GameState {
             }
             numPlayerTurn++;
         }
-        playAI();
+        //playAI();
     }
 
-    public void robotEasy(Player p) {
-        for(int i = 0; i < p.cards_in_Hand.size(); i++) {
-            Card selectedCard = checkCardEligibility(p.cards_in_Hand.get(i));
-            if (selectedCard == null) {
-                drawCard(p);
-                return;
-            }
-            placeCard(p, selectedCard);
-        }
-        setNumPlayerTurn();
-    }
+//    public void robotEasy(Player p) {
+//        for(int i = 0; i < p.cards_in_Hand.size(); i++) {
+//            Card selectedCard = checkCardEligibility(p.cards_in_Hand.get(i));
+//            if (selectedCard == null) {
+//                drawCard(p);
+//                return;
+//            }
+//            Log.e("===",selectedCard.face.ordinal() + "");
+//            Log.e("===",selectedCard.face.name() + "");
+//            placeCard(p, selectedCard);
+//        }
+//        setNumPlayerTurn();
+//    }
+//
+//    public void robotHard(Player p){
+//        int cardVal = 0;
+//        for(int i = 0; i < p.cards_in_Hand.size(); i++) {
+//            Card selectedCard = checkCardEligibility(p.cards_in_Hand.get(i));
+//            cardVal = Math.max(selectedCard.face.ordinal() + 1, getCardVal(selectedCard));
+//        }
+//            placeCard(p, getValToCard(p, cardVal));
+//            setNumPlayerTurn();
+//
+//            drawCard(p);
+//    }
+//
+//    public Card getValToCard(Player p, int value){
+//        for (int i = 0; i < p.cards_in_Hand.size(); i++) {
+//            if (p.cards_in_Hand.get(i).face.ordinal() == value) {
+//                switch (value){
+//                    case 1:
+//
+//                }
+//                return p.cards_in_Hand.get(i);
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public int getCardVal(Card c) {
+//        switch(c.face){
+//            case ACE:
+//                return 1;
+//            case KING: case QUEEN: case JACK: case TEN:
+//                return 10;
+//            case NINE:
+//                return 9;
+//            case EIGHT:
+//                return 50;
+//            case SEVEN:
+//                return 7;
+//            case SIX:
+//                return 6;
+//            case FIVE:
+//                return 5;
+//            case FOUR:
+//                return 4;
+//            case THREE:
+//                return 3;
+//            case TWO:
+//                return 2;
+//        }
+//        return 0;
+//    }
+
+
 
     public void drawCard(Player p)
     {
@@ -155,15 +224,15 @@ public class GameState {
         }
     }
 
-    public void playAI()
-    {
-        for(int i = 0; i < 3; i++){
-            if(numPlayerTurn == 0) {
-                return;
-            }
-            robotEasy(players.get(numPlayerTurn));
-        }
-    }
+//    public void playAI()
+//    {
+//        for(int i = 0; i < 3; i++){
+//            if(numPlayerTurn == 0) {
+//                return;
+//            }
+//            robotEasy(players.get(numPlayerTurn));
+//        }
+//    }
 
 
 
