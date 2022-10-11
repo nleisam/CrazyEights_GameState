@@ -7,23 +7,32 @@ import java.util.Random;
 @authors Ronnie Delos Santos, Noelle Lei Sam, Emily Do, Alex Melemai
  */
 
-public class GameState {
+public class GameState implements Cloneable {
 
     public int numPlayerTurn;
     public ArrayList<Player> players;
     public ArrayList<Card> discard;
     public ArrayList<Card> drawPile;
 
+
     public GameState(){
         players = new ArrayList<>();
         drawPile = new ArrayList<>();
         discard = new ArrayList<>();
 
+        setPlayers();
+        setDrawPile();
+        numPlayerTurn = new Random().nextInt(players.size());
+    }
+
+    public void setPlayers() {
         for (int i = 0; i < 4; i++)
         {
             players.add(new Player(i));
         }
+    }
 
+    public void setDrawPile() {
         for(Card.SUIT s: Card.SUIT.values())
         {
             for (Card.FACE f : Card.FACE.values())
@@ -31,13 +40,14 @@ public class GameState {
                 drawPile.add(new Card(f, s));
             }
         }
-        numPlayerTurn = new Random().nextInt(players.size());
-        Deal();
-        testPlay();
     }
 
-    public GameState deepCopy() {
-        return null;
+    public GameState clone() {
+        try {
+            return (GameState) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 
     public void Deal()
@@ -52,7 +62,6 @@ public class GameState {
          }
         }
     }
-
 
     @Override
     public String toString()
@@ -69,12 +78,7 @@ public class GameState {
               playersHand += "\n\n";
         }
 
-        String drawPileText = "Draw Pile: ";
-
-        for (Card card : drawPile) {
-            drawPileText += card.toString() + " ";
-        }
-
+        String drawPileText = "Draw Pile Size: " + drawPile.size() ;
         drawPileText += "\n\n";
 
         String discardPileText = "Discard Pile: ";
@@ -83,9 +87,7 @@ public class GameState {
             discardPileText += card.toString() + " ";
         }
         discardPileText += "\n\n";
-
         String returnText = drawPileText + playersHand + discardPileText + "\nPlayer Turn: " + numPlayerTurn;
-
 
         return returnText;
     }
