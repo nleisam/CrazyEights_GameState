@@ -5,12 +5,12 @@ import java.util.ArrayList;
  */
 public class Player {
 
-    public ArrayList<Card> cards_in_Hand;
-    public int score = 0;
-    public boolean isTurn;
-    public int playerID;
+    public ArrayList<Card> cards_in_Hand; //ArrayList of card objects for each Player object created
+    public int score = 0; //int for score of player
+    public boolean isTurn; //boolean for turn of player
+    public int playerID; //int to track Player objects
 
-    public Player(int id)
+    public Player(int id)//Player constructor assigns playerID and initalizes cards_in_Hand
     {
         playerID = id;
         cards_in_Hand = new ArrayList<>();
