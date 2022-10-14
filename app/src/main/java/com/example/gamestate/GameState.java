@@ -9,14 +9,14 @@ import java.util.Random;
 
 public class GameState implements Cloneable {
 
-    public int numPlayerTurn;
-    public ArrayList<Player> players;
-    public ArrayList<Card> discard;
+    public int numPlayerTurn;//int to track which Player object is in play
+    public ArrayList<Player> players;//ArrayList of Player objects
+    public ArrayList<Card> discard; //ArrayList of both cards played and cards that are drawable
     public ArrayList<Card> drawPile;
 
 
     public GameState(){
-        players = new ArrayList<>();
+        players = new ArrayList<>(); //initializes ArrayLists in method 
         drawPile = new ArrayList<>();
         discard = new ArrayList<>();
 
@@ -25,14 +25,14 @@ public class GameState implements Cloneable {
         numPlayerTurn = new Random().nextInt(players.size());
     }
 
-    public void setPlayers() {
+    public void setPlayers() {//populates players ArrayList with 4 Player objects
         for (int i = 0; i < 4; i++)
         {
             players.add(new Player(i));
         }
     }
 
-    public void setDrawPile() {
+    public void setDrawPile() {//populates drawPile with each drawable card
         for(Card.SUIT s: Card.SUIT.values())
         {
             for (Card.FACE f : Card.FACE.values())
@@ -50,7 +50,7 @@ public class GameState implements Cloneable {
         }
     }
 
-    public void Deal()
+    public void Deal()//deals 5 cards to each of the 4 Player object's ArrayLists of cards_in_hand from the drawPile
     {
         for (Player p : players)
         {
@@ -64,7 +64,7 @@ public class GameState implements Cloneable {
     }
 
     @Override
-    public String toString()
+    public String toString()//toString of GameState data
     {
         String playersHand = "";
 
@@ -92,8 +92,8 @@ public class GameState implements Cloneable {
         return returnText;
     }
 
-    public boolean placeCard(Player p, Card selectedCard) {
-       if(selectedCard != null) {
+    public boolean placeCard(Player p, Card selectedCard) {//boolean method if a card is selected it is removed from cards_in_hand and added to discard
+       if(selectedCard != null) {                          //true is returned if the action is performed
            p.cards_in_Hand.remove(selectedCard);
            discard.add(selectedCard);
 
@@ -113,7 +113,7 @@ public class GameState implements Cloneable {
     }
 
 
-    public Card checkCardEligibility(Card card) {
+    public Card checkCardEligibility(Card card) {//if card is playable card is returned ekse null is returned
         Card recentDiscardedCard;
         if (discard.size() == 0) {
             return card;
@@ -210,14 +210,14 @@ public class GameState implements Cloneable {
 
 
 
-    public void drawCard(Player p)
+    public void drawCard(Player p)//random Card object from drawPile is added to cards_in_hand ArrayList of Player object
     {
         int index = new Random().nextInt(drawPile.size());
         p.cards_in_Hand.add(drawPile.get(index));
         drawPile.remove(index);
     }
 
-    public void setNumPlayerTurn()
+    public void setNumPlayerTurn()//increments player turn
     {
         if (numPlayerTurn == 3){
             numPlayerTurn = 0;
