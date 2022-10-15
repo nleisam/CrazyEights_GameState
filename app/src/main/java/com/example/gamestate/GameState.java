@@ -3,8 +3,10 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
-/*
-@authors Ronnie Delos Santos, Noelle Lei Sam, Emily Do, Alex Melemai
+
+/**
+ * @authors Ronnie Delos Santos, Noelle Lei Sam, Emily Do, Alex Melemai
+ * @version 10/14/22
  */
 
 public class GameState implements Cloneable {
@@ -17,22 +19,28 @@ public class GameState implements Cloneable {
 
     public GameState(){
         players = new ArrayList<>(); //initializes ArrayLists in method 
-        drawPile = new ArrayList<>();
-        discard = new ArrayList<>();
+        drawPile = new ArrayList<>(); // ArrayList of cards in the drawpile
+        discard = new ArrayList<>(); // Arraylist of cards in the discard pile
 
         setPlayers();
         setDrawPile();
-        numPlayerTurn = new Random().nextInt(players.size());
+        numPlayerTurn = new Random().nextInt(players.size()); // randomly choosing a players turn at start of game
     }
 
-    public void setPlayers() {//populates players ArrayList with 4 Player objects
+    /**
+     * Populates players ArrayList with 4 Player objects
+     */
+    public void setPlayers() {
         for (int i = 0; i < 4; i++)
         {
             players.add(new Player(i));
         }
     }
 
-    public void setDrawPile() {//populates drawPile with each drawable card
+    /**
+     * Populates drawPile with each drawable card
+     */
+    public void setDrawPile() {
         for(Card.SUIT s: Card.SUIT.values())
         {
             for (Card.FACE f : Card.FACE.values())
@@ -42,6 +50,10 @@ public class GameState implements Cloneable {
         }
     }
 
+    /**
+     * Create more instances of GameState
+     * @return
+     */
     public GameState clone() {
         try {
             return (GameState) super.clone();
@@ -50,7 +62,10 @@ public class GameState implements Cloneable {
         }
     }
 
-    public void Deal()//deals 5 cards to each of the 4 Player object's ArrayLists of cards_in_hand from the drawPile
+    /**
+     * Deals 5 cards to each of the 4 Player object's ArrayLists of cards_in_hand from the drawPile
+     */
+    public void Deal()
     {
         for (Player p : players)
         {
@@ -63,8 +78,13 @@ public class GameState implements Cloneable {
         }
     }
 
+    /**
+     * Prints out GameState information in the form of a string
+     * @return: All information of Players, draw pile, and discard pile
+     *          for the instance of the game
+     */
     @Override
-    public String toString()//toString of GameState data
+    public String toString()
     {
         String playersHand = "";
 
@@ -92,28 +112,35 @@ public class GameState implements Cloneable {
         return returnText;
     }
 
-    public boolean placeCard(Player p, Card selectedCard) {//boolean method if a card is selected it is removed from cards_in_hand and added to discard
-       if(selectedCard != null) {                          //true is returned if the action is performed
+    /**
+     * Boolean method if a card is selected it is removed from cards_in_hand and added to discard
+     *
+     * @param p: current player
+     * @param selectedCard: card selected by Player
+     * @return: True if the action is performed
+     */
+    public boolean placeCard(Player p, Card selectedCard) {
+       if(selectedCard != null) {
            p.cards_in_Hand.remove(selectedCard);
            discard.add(selectedCard);
-
            return true;
        }
         return false;
     }
 
     public boolean difficulty() {
-
-
-    return false;
+        return false;
     }
     public boolean restart() {
-
         return false;
     }
 
-
-    public Card checkCardEligibility(Card card) {//if card is playable card is returned ekse null is returned
+    /**
+     * Check if card is playable
+     * @param card
+     * @return: playable card
+     */
+    public Card checkCardEligibility(Card card) {
         Card recentDiscardedCard;
         if (discard.size() == 0) {
             return card;
@@ -140,84 +167,23 @@ public class GameState implements Cloneable {
             }
             numPlayerTurn++;
         }
-        //playAI();
     }
 
-//    public void robotEasy(Player p) {
-//        for(int i = 0; i < p.cards_in_Hand.size(); i++) {
-//            Card selectedCard = checkCardEligibility(p.cards_in_Hand.get(i));
-//            if (selectedCard == null) {
-//                drawCard(p);
-//                return;
-//            }
-//            Log.e("===",selectedCard.face.ordinal() + "");
-//            Log.e("===",selectedCard.face.name() + "");
-//            placeCard(p, selectedCard);
-//        }
-//        setNumPlayerTurn();
-//    }
-//
-//    public void robotHard(Player p){
-//        int cardVal = 0;
-//        for(int i = 0; i < p.cards_in_Hand.size(); i++) {
-//            Card selectedCard = checkCardEligibility(p.cards_in_Hand.get(i));
-//            cardVal = Math.max(selectedCard.face.ordinal() + 1, getCardVal(selectedCard));
-//        }
-//            placeCard(p, getValToCard(p, cardVal));
-//            setNumPlayerTurn();
-//
-//            drawCard(p);
-//    }
-//
-//    public Card getValToCard(Player p, int value){
-//        for (int i = 0; i < p.cards_in_Hand.size(); i++) {
-//            if (p.cards_in_Hand.get(i).face.ordinal() == value) {
-//                switch (value){
-//                    case 1:
-//
-//                }
-//                return p.cards_in_Hand.get(i);
-//            }
-//        }
-//        return null;
-//    }
-//
-//    public int getCardVal(Card c) {
-//        switch(c.face){
-//            case ACE:
-//                return 1;
-//            case KING: case QUEEN: case JACK: case TEN:
-//                return 10;
-//            case NINE:
-//                return 9;
-//            case EIGHT:
-//                return 50;
-//            case SEVEN:
-//                return 7;
-//            case SIX:
-//                return 6;
-//            case FIVE:
-//                return 5;
-//            case FOUR:
-//                return 4;
-//            case THREE:
-//                return 3;
-//            case TWO:
-//                return 2;
-//        }
-//        return 0;
-//    }
-
-
-
-    public void drawCard(Player p)//random Card object from drawPile is added to cards_in_hand ArrayList of Player object
+    /**
+     * Random Card object from drawPile is added to cards_in_hand ArrayList of Player object
+     * @param p
+     */
+    public void drawCard(Player p)
     {
         int index = new Random().nextInt(drawPile.size());
         p.cards_in_Hand.add(drawPile.get(index));
         drawPile.remove(index);
     }
 
-    public void setNumPlayerTurn()//increments player turn
+    /**
+     * Increments player turn
+     */
+    public void setNumPlayerTurn()
     {
         if (numPlayerTurn == 3){
             numPlayerTurn = 0;
@@ -225,19 +191,4 @@ public class GameState implements Cloneable {
             numPlayerTurn++;
         }
     }
-
-//    public void playAI()
-//    {
-//        for(int i = 0; i < 3; i++){
-//            if(numPlayerTurn == 0) {
-//                return;
-//            }
-//            robotEasy(players.get(numPlayerTurn));
-//        }
-//    }
-
-
-
-
-
 }

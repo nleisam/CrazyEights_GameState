@@ -5,19 +5,29 @@ package com.example.gamestate;
 
 public class Card {
 
-
-    public Card(FACE f, SUIT s) //Card constructor assigns face value and suit
+    /**
+     * Card constructor assigns face value and suit
+     * @param f: FACE enum
+     * @param s: SUIT enum
+     */
+    public Card(FACE f, SUIT s)
     {
         face = f;
         suit = s;
     }
 
-    public enum FACE //enum for ace through king constants
+    /**
+     * Enum for ace through king constants
+     */
+    public enum FACE
     {
        ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, KING, QUEEN, JACK
     }
 
-    public enum SUIT //enum for suit constants
+    /**
+     * Enum for suit constants
+     */
+    public enum SUIT
     {
         HEART, SPADE, DIAMOND, CLUB
     }
@@ -25,10 +35,8 @@ public class Card {
     public FACE face; // face and suit values initalized
     public SUIT suit;
 
-    public String toString() //toString for data of card
+    public String toString()
     {
         return suit.name() + "-" + face.name();
     }
-
-
 }

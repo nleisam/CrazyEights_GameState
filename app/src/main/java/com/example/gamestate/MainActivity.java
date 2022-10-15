@@ -8,6 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * MainActivity: Calls methods to create and display GameState instances
+ *
+ * @author Ronnie Delos Santos, Noelle Lei Sam, Emily Do, Alex Melemai
+ * @version 10/14/22
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
